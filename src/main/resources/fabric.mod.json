@@ -1,0 +1,47 @@
+{
+	"schemaVersion": 1,
+	"id": "backpackmod",
+	"version": "${version}",
+	"name": "backpackmod",
+	"description": "Very veryy veryyy useful backpacks",
+	"authors": [
+		"SpyMan"
+	],
+	"contact": {
+		"homepage": "https://github.com/SpyMan10/backpackmod",
+		"sources": "https://github.com/SpyMan10/backpackmod",
+		"issues": "https://github.com/SpyMan10/backpackmod/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/backpackmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "net.spyman.backpackmod.BackpackMod",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "net.spyman.backpackmod.BackpackModClient",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "net.spyman.backpackmod.BackpackModDataGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.9.21"
+	},
+	"suggests": {}
+}

@@ -1,0 +1,13 @@
+{
+  "backpackmod.group.main_item_group": "Backpack Mod",
+  "item.backpackmod.leather_backpack": "Leather Backpack",
+  "item.backpackmod.copper_backpack": "Copper Backpack",
+  "item.backpackmod.iron_backpack": "Iron Backpack",
+  "item.backpackmod.golden_backpack": "Golden Backpack",
+  "item.backpackmod.amethyst_backpack": "Amethyst Backpack",
+  "item.backpackmod.diamond_backpack": "Diamond Backpack",
+  "item.backpackmod.netherite_backpack": "Netherite Backpack",
+
+  "backpackmod.tooltip.inventory.size": "Size :",
+  "backpackmod.tooltip.inventory.size.value": "%s Slot(s)"
+}
