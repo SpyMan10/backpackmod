@@ -5,12 +5,13 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.text.Text
 import net.spyman.backpackmod.BackpackMod
 
 object ModItemGroups {
 
   val mainGroup = FabricItemGroup.builder()
-    .displayName(BackpackMod.tr("group.main_item_group"))
+    .displayName(Text.translatable("itemGroup.backpackmod.main_item_group"))
     .entries { _, entries ->
       Registries.ITEM.ids
         .filter { it.namespace == BackpackMod.modid }

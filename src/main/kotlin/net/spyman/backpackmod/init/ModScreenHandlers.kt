@@ -11,12 +11,12 @@ object ModScreenHandlers {
 
   val backpackScreenHandler = ExtendedScreenHandlerType<BackpackScreenHandler> { sync, inv, buf ->
     // Should never be null
-    val type = ConfigurationManager.current.backpacks.find { it.name == buf.readString() }
+    val type = ConfigurationManager.current.backpacks.find { it.name == buf.readString() }!!
 
     return@ExtendedScreenHandlerType BackpackScreenHandler(
       sync,
       inv,
-      type!!,
+      type,
       SimpleInventory(type.size.width)
     )
   }

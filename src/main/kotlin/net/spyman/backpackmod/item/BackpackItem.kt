@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
-import net.minecraft.util.Formatting
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
@@ -25,14 +24,15 @@ class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
     return super.use(world, user, hand)
   }
 
-  override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-    tooltip.add(
-      BackpackMod.tr("tooltip.inventory.size")
-        .formatted(Formatting.GRAY, Formatting.RESET)
-        .append(BackpackMod.tr("tooltip.inventory.size.value"))
-        .formatted(Formatting.WHITE)
-    )
+  override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, ctx: TooltipContext) {
+    if (ctx.isAdvanced) {
+      tooltip.add(Text.translatable("tooltip.backpackmod.size", this.backpackType.size.size))
+      tooltip.add(Text.translatable("tooltip.backpackmod.features"))
+      tooltip.addAll(backpackType.features.map {
+        Text.literal(" §7- §f").append(Text.translatable(it.translationKey))
+      })
+    }
 
-    super.appendTooltip(stack, world, tooltip, context)
+    super.appendTooltip(stack, world, tooltip, ctx)
   }
 }

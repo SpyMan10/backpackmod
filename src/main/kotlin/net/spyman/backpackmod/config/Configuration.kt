@@ -61,31 +61,31 @@ data class Configuration(
         BackpackType(
           "iron_backpack", InventorySize(9, 4), Rarity.UNCOMMON, setOf(
             BackpackFeatures.WEARABLE,
-            BackpackFeatures.RENAME_ALLOWED
+            BackpackFeatures.RENAMEABLE
           )
         ),
         BackpackType(
           "golden_backpack", InventorySize(9, 5), Rarity.RARE, setOf(
             BackpackFeatures.WEARABLE,
-            BackpackFeatures.RENAME_ALLOWED
+            BackpackFeatures.RENAMEABLE
           )
         ),
         BackpackType(
           "amethyst_backpack", InventorySize(9, 6), Rarity.RARE, setOf(
             BackpackFeatures.WEARABLE,
-            BackpackFeatures.RENAME_ALLOWED
+            BackpackFeatures.RENAMEABLE
           )
         ),
         BackpackType(
           "diamond_backpack", InventorySize(12, 6), Rarity.EPIC, setOf(
             BackpackFeatures.WEARABLE,
-            BackpackFeatures.RENAME_ALLOWED
+            BackpackFeatures.RENAMEABLE
           )
         ),
         BackpackType(
           "netherite_backpack", InventorySize(12, 9), Rarity.EPIC, setOf(
             BackpackFeatures.WEARABLE,
-            BackpackFeatures.RENAME_ALLOWED,
+            BackpackFeatures.RENAMEABLE,
             BackpackFeatures.FIREPROOF
           )
         ),

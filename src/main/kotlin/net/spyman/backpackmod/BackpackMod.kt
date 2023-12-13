@@ -1,6 +1,7 @@
 package net.spyman.backpackmod
 
 import net.fabricmc.api.ModInitializer
+import net.minecraft.text.MutableText
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.spyman.backpackmod.config.ConfigurationManager
@@ -34,6 +35,5 @@ object BackpackMod : ModInitializer {
     ModItemGroups.init()
   }
 
-  fun identify(resource: String) = Identifier(modid, resource)
-  fun tr(key: String, vararg params: Any) = Text.translatable("$modid.$key", params)
+  fun identify(resource: String): Identifier = Identifier(modid, resource)
 }

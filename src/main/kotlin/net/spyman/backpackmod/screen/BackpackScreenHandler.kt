@@ -13,7 +13,7 @@ import net.spyman.backpackmod.init.ModScreenHandlers
 class BackpackScreenHandler(
   syncId: Int,
   private val playerInventory: PlayerInventory,
-  private val backpackType: BackpackType,
+  val backpackType: BackpackType,
   private val backpackInventory: Inventory
 ) : ScreenHandler(ModScreenHandlers.backpackScreenHandler, syncId) {
 
@@ -24,11 +24,11 @@ class BackpackScreenHandler(
   /** Internal usage only */
   private fun initializeSlots() {
     // Backpack inventory (depending on inventory size)
-    for (n in 0 until this.backpackType.size.height) {
-      for (m in 0 until this.backpackType.size.width) {
+    for (n in 0..< this.backpackType.size.height) {
+      for (m in 0..<this.backpackType.size.width) {
         this.addSlot(
           BackpackSlot(
-            this.backpackInventory, m + n * this.backpackType.size.width, 8 + m * 18, 18 + n * 18
+            this.backpackInventory, m + n * this.backpackType.size.width, 8 + m * 18, 18 + n * 1
           )
         )
       }
@@ -90,10 +90,12 @@ class BackpackScreenHandler(
     return stack
   }
 
-  override fun onClosed(player: PlayerEntity?) {
+  override fun onClosed(player: PlayerEntity) {
     this.backpackInventory.onClose(player)
     super.onClosed(player)
   }
+
+  //TODO: missing slotClick() override to prevent player from moving backpack ItemStack while ScreenHandler is opened
 
   companion object {
     val id = BackpackMod.identify("backpack_generic_screen_handler")

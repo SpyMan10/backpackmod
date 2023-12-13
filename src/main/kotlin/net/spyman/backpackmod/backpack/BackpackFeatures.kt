@@ -1,5 +1,7 @@
 package net.spyman.backpackmod.backpack
 
+import net.spyman.backpackmod.BackpackMod
+
 enum class BackpackFeatures {
   /**
    * Immune to fire and lava.
@@ -11,5 +13,7 @@ enum class BackpackFeatures {
   WEARABLE,
 
   /** This backpack can have a custom */
-  RENAME_ALLOWED
+  RENAMEABLE;
+
+  val translationKey = "feature.${BackpackMod.modid}.${this.name.lowercase()}"
 }

@@ -11,7 +11,7 @@ import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 
 object ConfigurationManager {
-
+  
   val modDirPath = Path.of(FabricLoader.getInstance().configDir.toAbsolutePath().toString(), BackpackMod.modid)
   val modConfigPath = Path.of(modDirPath.absolutePathString(), "ModConfig.json")
 
