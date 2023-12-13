@@ -17,7 +17,7 @@ object ModScreenHandlers {
       sync,
       inv,
       type,
-      SimpleInventory(type.size.width)
+      SimpleInventory(type.size.size)
     )
   }
 

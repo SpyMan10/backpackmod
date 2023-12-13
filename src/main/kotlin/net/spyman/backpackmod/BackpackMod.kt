@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier
 import net.spyman.backpackmod.config.ConfigurationManager
 import net.spyman.backpackmod.init.ModItemGroups
 import net.spyman.backpackmod.init.ModItems
+import net.spyman.backpackmod.init.ModScreenHandlers
 import org.slf4j.LoggerFactory
 
 object BackpackMod : ModInitializer {
@@ -33,6 +34,8 @@ object BackpackMod : ModInitializer {
 
     // Force init
     ModItemGroups.init()
+
+    ModScreenHandlers.init()
   }
 
   fun identify(resource: String): Identifier = Identifier(modid, resource)

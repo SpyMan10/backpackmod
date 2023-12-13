@@ -12,7 +12,7 @@ enum class BackpackFeatures {
   /** Can be placed in chest slot */
   WEARABLE,
 
-  /** This backpack can have a custom */
+  /** This backpack can have a custom name (Shift + RightClick to rename it directly without name tag */
   RENAMEABLE;
 
   val translationKey = "feature.${BackpackMod.modid}.${this.name.lowercase()}"

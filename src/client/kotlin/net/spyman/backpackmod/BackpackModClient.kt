@@ -2,9 +2,8 @@ package net.spyman.backpackmod
 
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.gui.screen.ingame.HandledScreens
-import net.spyman.backpackmod.handledscreen.BackpackScreen
+import net.spyman.backpackmod.screen.BackpackScreen
 import net.spyman.backpackmod.init.ModScreenHandlers
-import org.slf4j.LoggerFactory
 
 object BackpackModClient : ClientModInitializer {
 

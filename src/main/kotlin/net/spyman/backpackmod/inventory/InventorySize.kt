@@ -13,8 +13,9 @@ data class InventorySize(
 ) {
 
   init {
+    // Size must be strictly > to 0
     if (width <= 0 || height <= 0)
-      throw IllegalArgumentException("Inventory size width and height must be >= 1")
+      throw IllegalArgumentException("Inventory size width and height must be strictly > to 0")
   }
 
   val size: Int = this.width * this.height
