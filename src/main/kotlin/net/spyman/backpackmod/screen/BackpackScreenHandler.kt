@@ -9,6 +9,7 @@ import net.minecraft.screen.slot.Slot
 import net.spyman.backpackmod.BackpackMod
 import net.spyman.backpackmod.backpack.BackpackType
 import net.spyman.backpackmod.init.ModScreenHandlers
+import kotlin.math.max
 
 class BackpackScreenHandler(
   syncId: Int,
@@ -23,12 +24,14 @@ class BackpackScreenHandler(
 
   /** Internal usage only */
   private fun initializeSlots() {
+    val w = max(this.backpackType.size.width * 18, 162)
+
     // Backpack inventory (depending on inventory size)
     for (n in 0..< this.backpackType.size.height) {
       for (m in 0..<this.backpackType.size.width) {
         this.addSlot(
           BackpackSlot(
-            this.backpackInventory, m + n * this.backpackType.size.width, 8 + m * 18, 18 + n * 1
+            this.backpackInventory, m + n * this.backpackType.size.width, 8 + m * 18, 18 + n * 18
           )
         )
       }
@@ -41,7 +44,7 @@ class BackpackScreenHandler(
           Slot(
             this.playerInventory,
             m + n * 9 + 9,
-            8 + (this.backpackType.size.width * 18 - 162) / 2 + m * 18,
+            8 + (w - 162) / 2 + m * 18,
             31 + (this.backpackType.size.height + n) * 18
           )
         )
@@ -54,7 +57,7 @@ class BackpackScreenHandler(
         Slot(
           this.playerInventory,
           n,
-          8 + (this.backpackType.size.width * 18 - 162) / 2 + n * 18,
+          8 + (w - 162) / 2 + n * 18,
           89 + this.backpackType.size.height * 18
         )
       )

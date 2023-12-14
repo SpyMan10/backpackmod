@@ -35,6 +35,8 @@ class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
   override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, ctx: TooltipContext) {
     if (ctx.isAdvanced) {
       tooltip.add(Text.translatable("tooltip.backpackmod.size", this.backpackType.size.size))
+      tooltip.add(Text.literal(" §7- ").append(Text.translatable("tooltip.backpackmod.size.width", this.backpackType.size.width)))
+      tooltip.add(Text.literal(" §7- ").append(Text.translatable("tooltip.backpackmod.size.height", this.backpackType.size.height)))
       tooltip.add(Text.translatable("tooltip.backpackmod.features"))
       tooltip.addAll(backpackType.features.map {
         Text.literal(" §7- §f").append(Text.translatable(it.translationKey))

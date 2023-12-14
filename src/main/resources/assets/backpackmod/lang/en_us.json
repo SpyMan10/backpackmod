@@ -9,6 +9,8 @@
   "item.backpackmod.netherite_backpack": "Netherite Backpack",
 
   "tooltip.backpackmod.size": "§7Size : §f%d Slot(s)",
+  "tooltip.backpackmod.size.width": "§7Width : §f%d",
+  "tooltip.backpackmod.size.height": "§7Height : §f%d",
   "tooltip.backpackmod.features": "§7Features :",
 
   "feature.backpackmod.fireproof": "Fire proof",
