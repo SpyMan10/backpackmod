@@ -10,6 +10,6 @@ object BackpackModClient : ClientModInitializer {
   override fun onInitializeClient() {
     BackpackMod.logger.info("Initializing client BackpackMod...")
     BackpackMod.logger.info("Registering screens...")
-    HandledScreens.register(ModScreenHandlers.backpackScreenHandler, ::BackpackScreen)
+    HandledScreens.register(ModScreenHandlers.BACKPACK_SCREEN_HANDLER, ::BackpackScreen)
   }
 }

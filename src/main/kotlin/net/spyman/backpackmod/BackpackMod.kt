@@ -1,10 +1,8 @@
 package net.spyman.backpackmod
 
 import net.fabricmc.api.ModInitializer
-import net.minecraft.text.MutableText
-import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import net.spyman.backpackmod.config.ConfigurationManager
+import net.spyman.backpackmod.config.ConfigManager
 import net.spyman.backpackmod.init.ModItemGroups
 import net.spyman.backpackmod.init.ModItems
 import net.spyman.backpackmod.init.ModScreenHandlers
@@ -20,13 +18,13 @@ object BackpackMod : ModInitializer {
 
   override fun onInitialize() {
     logger.info("Initializing BackpackMod...")
-    logger.info("Loading configuration file located at: ${ConfigurationManager.modConfigPath} ...")
-    logger.info("Note: If there is no configuration at the above path, the default config will be written")
-    ConfigurationManager.loadOrDefaultAndAssign()
+    logger.info("Loading configuration file located at: ${ConfigManager.modConfigPath} ...")
+    logger.info("Note: If there is no configuration, the default config will be written and used by default")
+    ConfigManager.loadOrDefaultAndAssign()
 
-    logger.info("${ConfigurationManager.current.backpacks.size} Backpack type(s) found")
+    logger.info("Found ${ConfigManager.current.backpacks.size} different backpack type(s)")
 
-    for (b in ConfigurationManager.current.backpacks)
+    for (b in ConfigManager.current.backpacks)
       logger.info("- ${b.name}")
 
     logger.info("Registering items...")

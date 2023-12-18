@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.text.Text
 import net.spyman.backpackmod.BackpackMod
+import net.spyman.backpackmod.inventory.BackpackScreenHandler
 import kotlin.math.max
 
 class BackpackScreen(
@@ -14,9 +15,9 @@ class BackpackScreen(
 ) : HandledScreen<BackpackScreenHandler>(handler, inventory, title) {
 
   init {
-    this.backgroundWidth = max(this.handler.backpackType.size.width * 18 + 14, 176)
-    this.backgroundHeight = max(this.handler.backpackType.size.height * 18 + 114, 114)
-    this.playerInventoryTitleY = handler.backpackType.size.height * 18 + 20
+    this.backgroundWidth = max(this.handler.backpack.type.size.width * 18 + 14, 176)
+    this.backgroundHeight = max(this.handler.backpack.type.size.height * 18 + 114, 114)
+    this.playerInventoryTitleY = handler.backpack.type.size.height * 18 + 20
   }
 
   override fun drawBackground(ctx: DrawContext, delta: Float, mouseX: Int, mouseY: Int) {

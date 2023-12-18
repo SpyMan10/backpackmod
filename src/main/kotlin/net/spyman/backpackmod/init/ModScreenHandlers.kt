@@ -1,34 +1,22 @@
 package net.spyman.backpackmod.init
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType
-import net.minecraft.inventory.SimpleInventory
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
-import net.spyman.backpackmod.BackpackMod
-import net.spyman.backpackmod.config.ConfigurationManager
-import net.spyman.backpackmod.screen.BackpackScreenHandler
+import net.spyman.backpackmod.backpack.Backpack
+import net.spyman.backpackmod.config.ConfigManager
+import net.spyman.backpackmod.inventory.BackpackScreenHandler
 
 object ModScreenHandlers {
 
-  val backpackScreenHandler = ExtendedScreenHandlerType<BackpackScreenHandler> { sync, inv, buf ->
-    // Should never be null
-    for (b in ConfigurationManager.current.backpacks)
-      BackpackMod.logger.info(b.name)
-
+  val BACKPACK_SCREEN_HANDLER = ExtendedScreenHandlerType<BackpackScreenHandler> { sync, playerInv, buf ->
     val name = buf.readString()
-    BackpackMod.logger.info(name)
+    val backpack = Backpack(ConfigManager.current.backpacks.find { it.name == name }!!)
 
-    val type = ConfigurationManager.current.backpacks.find { it.name == name }!!
-
-    return@ExtendedScreenHandlerType BackpackScreenHandler(
-      sync,
-      inv,
-      type,
-      SimpleInventory(type.size.size)
-    )
+    return@ExtendedScreenHandlerType backpack.createScreenHandler(sync, playerInv)
   }
 
   fun init() {
-    Registry.register(Registries.SCREEN_HANDLER, BackpackScreenHandler.id, backpackScreenHandler)
+    Registry.register(Registries.SCREEN_HANDLER, BackpackScreenHandler.ID, BACKPACK_SCREEN_HANDLER)
   }
 }

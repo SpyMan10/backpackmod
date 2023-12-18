@@ -1,4 +1,4 @@
-package net.spyman.backpackmod.screen
+package net.spyman.backpackmod.inventory
 
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
