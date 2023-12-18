@@ -1,0 +1,23 @@
+{
+  "type": "backpackmod:shaped_upgrade",
+  "category": "backpack",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "B": {
+      "item": "backpackmod:leather_backpack"
+    }
+  },
+  "pattern": [
+    "###",
+    "CBC",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:bread"
+  }
+}
