@@ -16,7 +16,7 @@ enum class BackpackFeature {
   /** This backpack can have a custom name without using anvil and label (user can do it by itself) */
   RENAMABLE;
 
-  val translationKey = "feature.${BackpackMod.modid}.${this.name.lowercase()}"
+  val translationKey = "feature.${BackpackMod.MODID}.${this.name.lowercase()}"
 }
 
 data class BackpackType(

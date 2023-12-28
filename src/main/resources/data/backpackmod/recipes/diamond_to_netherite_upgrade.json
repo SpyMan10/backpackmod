@@ -8,17 +8,17 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:netherite_scrap"
     },
     "C": {
       "item": "minecraft:chest"
     },
     "B": {
-      "item": "backpackmod:leather_backpack"
+      "item": "backpackmod:diamond_backpack"
     }
   },
   "result": {
-    "item": "backpackmod:iron_backpack"
+    "item": "backpackmod:netherite_backpack"
   },
   "nbt_source_key": "B"
 }

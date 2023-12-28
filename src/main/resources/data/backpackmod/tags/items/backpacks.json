@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "backpackmod:leather_backpack",
+    "backpackmod:copper_backpack",
+    "backpackmod:iron_backpack",
+    "backpackmod:golden_backpack",
+    "backpackmod:amethyst_backpack",
+    "backpackmod:diamond_backpack",
+    "backpackmod:netherite_backpack"
+  ]
+}

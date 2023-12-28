@@ -5,13 +5,16 @@
     "#": {
       "item": "minecraft:leather"
     },
+    "S": {
+      "item": "minecraft:string"
+    },
     "C": {
       "item": "minecraft:chest"
     }
   },
   "pattern": [
     "###",
-    "#C#",
+    "SCS",
     "###"
   ],
   "result": {

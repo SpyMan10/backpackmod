@@ -7,26 +7,28 @@ import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.slot.Slot
+import net.minecraft.screen.slot.SlotActionType
 import net.spyman.backpackmod.BackpackMod
 import net.spyman.backpackmod.backpack.Backpack
+import net.spyman.backpackmod.backpack.toIndexedCollection
+import net.spyman.backpackmod.backpack.toInventory
 import net.spyman.backpackmod.config.ConfigManager
-import net.spyman.backpackmod.init.ModScreenHandlers
+import net.spyman.backpackmod.init.BACKPACK_SCREEN_HANDLER
 import kotlin.math.max
 
 class BackpackScreenHandler(
   syncId: Int,
   private val playerInventory: PlayerInventory,
   val backpack: Backpack
-) : ScreenHandler(ModScreenHandlers.BACKPACK_SCREEN_HANDLER, syncId) {
+) : ScreenHandler(BACKPACK_SCREEN_HANDLER, syncId) {
 
-  private val inventory: Inventory = SimpleInventory(this.backpack.type.size.count)
+  private val inventory: Inventory = this.backpack.supply({
+    this.backpack
+      .readContent(it.orCreateNbt.getCompound(ConfigManager.current.inventoryNbtKey))
+      .toInventory(this.backpack.type.size.count)
+  }, SimpleInventory(this.backpack.type.size.count))
 
   init {
-    this.backpack.useItemStack {
-      this.backpack.readContent(it.orCreateNbt.getCompound(ConfigManager.current.inventoryNbtKey))
-        .forEachIndexed(this.inventory::setStack)
-    }
-
     this.initializeSlots()
   }
 
@@ -98,21 +100,25 @@ class BackpackScreenHandler(
   }
 
   override fun onClosed(player: PlayerEntity) {
-    this.backpack.useItemStack { stack ->
-      stack.orCreateNbt.put(ConfigManager.current.inventoryNbtKey, this.backpack.writeContent(this.inventory.let {
-        val stacks = mutableListOf<ItemStack>()
-
-        for (index in 0..<it.size()) stacks.add(this.inventory.getStack(index))
-
-        return@let stacks
-      }))
+    this.backpack.useItemStack {
+      it.orCreateNbt.put(
+        ConfigManager.current.inventoryNbtKey,
+        this.backpack.writeContent(this.inventory.toIndexedCollection())
+      )
     }
 
     this.inventory.onClose(player)
     super.onClosed(player)
   }
 
-  //TODO: missing slotClick() override to prevent player from moving backpack ItemStack while ScreenHandler is opened
+  override fun onSlotClick(slotIndex: Int, button: Int, actionType: SlotActionType, player: PlayerEntity) {
+    val offset = player.inventory.selectedSlot + 27 + this.inventory.size()
+
+    // Lock the ItemStack to prevent player from moving backpack while the container is still open
+    if (slotIndex >= 0 && offset == slotIndex && actionType != SlotActionType.CLONE) return;
+
+    super.onSlotClick(slotIndex, button, actionType, player)
+  }
 
   companion object {
     val ID = BackpackMod.identify("backpack_generic_screen_handler")

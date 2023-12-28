@@ -1,7 +1,9 @@
 package net.spyman.backpackmod.item
 
 import net.minecraft.client.item.TooltipContext
+import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.Equipment
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.sound.SoundCategory
@@ -12,11 +14,8 @@ import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 import net.spyman.backpackmod.backpack.Backpack
 import net.spyman.backpackmod.backpack.BackpackType
-import java.nio.file.Files
-import java.nio.file.Path
 
-class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
-
+open class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
   private val type: BackpackType = settings.type
 
   fun backpack(): Backpack = Backpack(type)
@@ -61,4 +60,8 @@ class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
 
     super.appendTooltip(stack, world, tooltip, ctx)
   }
+}
+
+class WearableBackpackItem(settings: BackpackItemSettings) : BackpackItem(settings), Equipment {
+  override fun getSlotType(): EquipmentSlot = EquipmentSlot.CHEST
 }

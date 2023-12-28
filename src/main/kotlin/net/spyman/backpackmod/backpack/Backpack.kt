@@ -3,6 +3,8 @@ package net.spyman.backpackmod.backpack
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.inventory.Inventory
+import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtList
@@ -10,7 +12,6 @@ import net.minecraft.network.PacketByteBuf
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
-import net.minecraft.util.collection.DefaultedList
 import net.spyman.backpackmod.inventory.BackpackScreenHandler
 
 /** This class allow you to manipulate backpack. */
@@ -31,31 +32,34 @@ class Backpack(
   fun createScreenHandler(sync: Int, playerInventory: PlayerInventory): BackpackScreenHandler =
     BackpackScreenHandler(sync, playerInventory, this)
 
-  fun readContent(nbt: NbtCompound): DefaultedList<ItemStack> {
-    val list = DefaultedList.ofSize<ItemStack>(this.type.size.count, ItemStack.EMPTY)
+  fun readContent(nbt: NbtCompound): Collection<IndexedContent> {
+    val list = mutableListOf<IndexedContent>()
     val nbtList = nbt.getList("Items", NbtList.COMPOUND_TYPE.toInt())
 
     for (i in 0..<nbtList.size) {
       val slotData = nbtList.getCompound(i)
       val slotIndex = slotData.getInt("Slot")
-      list[slotIndex] = ItemStack.fromNbt(slotData.getCompound("Content"))
+      list.add(
+        IndexedContent(
+          slotIndex,
+          ItemStack.fromNbt(slotData.getCompound("Content"))
+        )
+      )
     }
 
     return list
   }
 
-  fun writeContent(content: List<ItemStack>): NbtCompound {
+  fun writeContent(content: Collection<IndexedContent>): NbtCompound {
     val nbt = NbtCompound()
     val nbtList = NbtList()
 
-    for ((index, stack) in content.withIndex()) {
+    for (slot in content) {
       // Do not write empty ItemStack ()
-      if (!stack.isEmpty) {
-        val slotNbt = NbtCompound()
-        slotNbt.putInt("Slot", index)
-        slotNbt.put("Content", stack.writeNbt(NbtCompound()))
-        nbtList.add(slotNbt)
-      }
+      val slotNbt = NbtCompound()
+      slotNbt.putInt("Slot", slot.index)
+      slotNbt.put("Content", slot.content.writeNbt(NbtCompound()))
+      nbtList.add(slotNbt)
     }
 
     nbt.put("Items", nbtList)
@@ -72,6 +76,9 @@ class Backpack(
   fun useItemStack(callback: (ItemStack) -> Unit) {
     if (this.stack != null) callback(this.stack)
   }
+
+  fun <T> supply(callback: (ItemStack) -> T, default: T): T =
+    if (stack != null) callback(this.stack) else default
 }
 
 /** Backpack ScreenHandlerFactory Impl. */
@@ -87,4 +94,26 @@ private class BackpackScreenHandlerFactory(
   override fun writeScreenOpeningData(player: ServerPlayerEntity, buf: PacketByteBuf) {
     buf.writeString(this.backpack.type.name)
   }
+}
+
+data class IndexedContent(val index: Int, val content: ItemStack)
+
+fun Collection<IndexedContent>.toInventory(size: Int): Inventory {
+  val inventory = SimpleInventory(size)
+  this.forEach { inventory.setStack(it.index, it.content) }
+
+  return inventory
+}
+
+fun Inventory.toIndexedCollection(): Collection<IndexedContent> {
+  val list = mutableListOf<IndexedContent>()
+
+  for (i in 0..<this.size()) {
+    val stack = this.getStack(i)
+    if (stack.isEmpty) continue
+
+    list.add(IndexedContent(i, stack))
+  }
+
+  return list
 }

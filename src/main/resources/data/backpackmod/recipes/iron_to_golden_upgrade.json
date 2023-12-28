@@ -8,17 +8,17 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:gold_ingot"
     },
     "C": {
       "item": "minecraft:chest"
     },
     "B": {
-      "item": "backpackmod:leather_backpack"
+      "item": "backpackmod:iron_backpack"
     }
   },
   "result": {
-    "item": "backpackmod:iron_backpack"
+    "item": "backpackmod:golden_backpack"
   },
   "nbt_source_key": "B"
 }
