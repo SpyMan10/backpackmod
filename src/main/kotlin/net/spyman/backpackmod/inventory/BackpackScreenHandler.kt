@@ -27,6 +27,7 @@ class BackpackScreenHandler(
       .readContent(it.orCreateNbt.getCompound(ConfigManager.current.inventoryNbtKey))
       .toInventory(this.backpack.type.size.count)
   }, SimpleInventory(this.backpack.type.size.count))
+  public val metrics = ScreenMetrics(this.backpack.type.size)
 
   init {
     this.initializeSlots()

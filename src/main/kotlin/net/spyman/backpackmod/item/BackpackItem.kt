@@ -9,10 +9,12 @@ import net.minecraft.item.ItemStack
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 import net.spyman.backpackmod.backpack.Backpack
+import net.spyman.backpackmod.backpack.BackpackFeature
 import net.spyman.backpackmod.backpack.BackpackType
 
 open class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
@@ -52,10 +54,22 @@ open class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
         Text.literal(" §7- ")
           .append(Text.translatable("tooltip.backpackmod.size.height", this.type.size.height))
       )
-      tooltip.add(Text.translatable("tooltip.backpackmod.features"))
-      tooltip.addAll(type.features.map {
-        Text.literal(" §7- §f").append(Text.translatable(it.translationKey))
-      })
+
+      if (this.type.features.isNotEmpty()) {
+        tooltip.add(Text.literal(""))
+        tooltip.add(Text.translatable("tooltip.backpackmod.features"))
+        tooltip.addAll(type.features.map {
+          Text.literal(" §7- §f").append(Text.translatable(it.translationKey))
+        })
+      }
+    }
+
+    if (BackpackFeature.RENAMABLE in this.type.features) {
+      tooltip.add(Text.literal(""))
+      tooltip.add(Text
+        .translatable("tooltip.backpackmod.rename")
+        .formatted(Formatting.ITALIC, Formatting.GOLD)
+      )
     }
 
     super.appendTooltip(stack, world, tooltip, ctx)

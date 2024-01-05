@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.text.Text
 import net.spyman.backpackmod.BackpackMod
 import net.spyman.backpackmod.inventory.BackpackScreenHandler
+import net.spyman.backpackmod.inventory.ScreenMetrics
 import kotlin.math.max
 
 class BackpackScreen(
@@ -13,6 +14,8 @@ class BackpackScreen(
   inventory: PlayerInventory,
   title: Text
 ) : HandledScreen<BackpackScreenHandler>(handler, inventory, title) {
+
+  private val metrics = ScreenMetrics(this.handler.backpack.type.size)
 
   init {
     this.backgroundWidth = max(this.handler.backpack.type.size.width * 18 + 14, 176)
@@ -26,7 +29,7 @@ class BackpackScreen(
 
     // Top
     ctx.drawTexture(
-      texture,
+      TEXTURE,
       4, 0,
       this.backgroundWidth - 7, 3,
       23.0F, 0.0F,
@@ -36,7 +39,7 @@ class BackpackScreen(
 
     // Left
     ctx.drawTexture(
-      texture,
+      TEXTURE,
       this.backgroundWidth - 3, 3,
       3, this.backgroundHeight - 8,
       25.0F, 4.0F,
@@ -46,7 +49,7 @@ class BackpackScreen(
 
     // Bottom
     ctx.drawTexture(
-      texture,
+      TEXTURE,
       3, this.backgroundHeight - 4,
       this.backgroundWidth - 7, 3,
       22.0F, 7.0F,
@@ -56,7 +59,7 @@ class BackpackScreen(
 
     // Right
     ctx.drawTexture(
-      texture,
+      TEXTURE,
       0, 4,
       3, this.backgroundHeight - 8,
       18.0F, 5.0F,
@@ -68,17 +71,17 @@ class BackpackScreen(
     ctx.fill(3, 3, this.backgroundWidth - 3, this.backgroundHeight - 4, 0xFFC6C6C6.toInt())
 
     // Upper-left corner
-    ctx.drawTexture(texture, 0, 0, 18.0F, 0.0F, 4, 4, 128, 32)
+    ctx.drawTexture(TEXTURE, 0, 0, 18.0F, 0.0F, 4, 4, 128, 32)
     // Upper-right corner
-    ctx.drawTexture(texture, this.backgroundWidth - 3, 1, 25.0F, 1.0F, 2, 2, 128, 32)
+    ctx.drawTexture(TEXTURE, this.backgroundWidth - 3, 1, 25.0F, 1.0F, 2, 2, 128, 32)
     // Lower-right corner
-    ctx.drawTexture(texture, this.backgroundWidth - 4, this.backgroundHeight - 5, 24.0F, 6.0F, 4, 4, 128, 32)
+    ctx.drawTexture(TEXTURE, this.backgroundWidth - 4, this.backgroundHeight - 5, 24.0F, 6.0F, 4, 4, 128, 32)
     // Lower-left corner
-    ctx.drawTexture(texture, 1, this.backgroundHeight - 4, 19.0F, 7.0F, 2, 2, 128, 32)
+    ctx.drawTexture(TEXTURE, 1, this.backgroundHeight - 4, 19.0F, 7.0F, 2, 2, 128, 32)
 
     // Drawing each slots
     this.handler.slots.forEach {
-      ctx.drawTexture(texture, it.x - 1, it.y - 1, 0.0F, 0.0F, 18, 18, 128, 32)
+      ctx.drawTexture(TEXTURE, it.x - 1, it.y - 1, 0.0F, 0.0F, 18, 18, 128, 32)
     }
 
     ctx.matrices.pop()
@@ -90,6 +93,6 @@ class BackpackScreen(
   }
 
   companion object {
-    private val texture = BackpackMod.identify("textures/gui/container/parts.png")
+    private val TEXTURE = BackpackMod.identify("textures/gui/container/parts.png")
   }
 }

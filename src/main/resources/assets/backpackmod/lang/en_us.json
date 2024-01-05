@@ -12,6 +12,7 @@
   "tooltip.backpackmod.size.width": "§7Width : §f%d",
   "tooltip.backpackmod.size.height": "§7Height : §f%d",
   "tooltip.backpackmod.features": "§7Features :",
+  "tooltip.backpackmod.rename": "§7Press §6§n§oShift + Right click §7to rename",
 
   "feature.backpackmod.fireproof": "Fire proof",
   "feature.backpackmod.wearable": "Wearable",

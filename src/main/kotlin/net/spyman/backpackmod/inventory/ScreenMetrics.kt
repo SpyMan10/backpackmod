@@ -14,7 +14,7 @@ private const val SUGGESTED_INV_MAT_Y = 17
 private const val PLAYER_INV_WIDTH = 162
 private const val PLAYER_INV_HEIGHT = 76
 
-class ComponentLocator(val inventorySize: InventorySize) {
+class ScreenMetrics(val inventorySize: InventorySize) {
 
   /* Slot matrix width in pixels */
   val matPixWidth = this.inventorySize.width * SLOT_FRAGMENT_WIDTH
@@ -50,7 +50,7 @@ class ComponentLocator(val inventorySize: InventorySize) {
 
 data class SlotPos(val index: Int, val x: Int, val y: Int)
 
-class SlotIterator(private val locator: ComponentLocator) : Iterator<SlotPos> {
+class SlotIterator(private val locator: ScreenMetrics) : Iterator<SlotPos> {
   private var index = 0
 
   override fun hasNext(): Boolean = index < this.locator.inventorySize.count
@@ -62,7 +62,7 @@ class SlotIterator(private val locator: ComponentLocator) : Iterator<SlotPos> {
   )
 }
 
-class PlayerSlotIterator(private val locator: ComponentLocator) : Iterator<SlotPos> {
+class PlayerSlotIterator(private val locator: ScreenMetrics) : Iterator<SlotPos> {
   private var index = 0
 
   override fun hasNext(): Boolean = this.index < 36
