@@ -24,7 +24,7 @@ open class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
 
   /** Called when user right-click with this item in hand */
   override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
-    if (!world.isClient) {
+    if (!world.isClient && !user.isSneaking) {
       val stack = user.getStackInHand(hand)
       val backpack = Backpack(type, stack)
       user.openHandledScreen(backpack.createScreenHandlerFactory(stack.name))
@@ -37,6 +37,8 @@ open class BackpackItem(settings: BackpackItemSettings) : Item(settings) {
       world.random.nextFloat(),
       world.random.nextFloat()
     )
+
+
 
     return super.use(world, user, hand)
   }
