@@ -10,12 +10,12 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 
-object ConfigurationManager {
-  
-  val modDirPath = Path.of(FabricLoader.getInstance().configDir.toAbsolutePath().toString(), BackpackMod.modid)
-  val modConfigPath = Path.of(modDirPath.absolutePathString(), "ModConfig.json")
+object ConfigManager {
 
-  lateinit var current: Configuration
+  val modDirPath = Path.of(FabricLoader.getInstance().configDir.toAbsolutePath().toString(), BackpackMod.MODID)
+  val modConfigPath = Path.of(modDirPath.absolutePathString(), "config.json")
+
+  lateinit var current: Config
     private set
 
   // Global GSON used
@@ -23,13 +23,13 @@ object ConfigurationManager {
     .setPrettyPrinting()
     .registerTypeAdapter(InventorySize::class.java, InventorySize.Serializer)
     .registerTypeAdapter(BackpackType::class.java, BackpackType.Serializer)
-    .registerTypeAdapter(Configuration::class.java, Configuration.Serializer)
+    .registerTypeAdapter(Config::class.java, Config.Serializer)
     .create()
 
   /**
    * Write the given configuration instance at the modConfigPath
    */
-  fun save(cfg: Configuration) {
+  fun save(cfg: Config) {
     // Creating required subdirectories
     Files.createDirectories(modDirPath)
     Files.writeString(modConfigPath, gson.toJson(cfg))
@@ -38,8 +38,8 @@ object ConfigurationManager {
   /**
    * Load the configuration located at modConfigPath
    */
-  fun load(): Configuration? = if (Files.exists(modConfigPath))
-    gson.fromJson(Files.readString(modConfigPath, Charsets.UTF_8), Configuration::class.java)
+  fun load(): Config? = if (Files.exists(modConfigPath))
+    gson.fromJson(Files.readString(modConfigPath, Charsets.UTF_8), Config::class.java)
   else null
 
   /**
@@ -47,8 +47,8 @@ object ConfigurationManager {
    * if there is no file found.
    * The loaded configuration will also be assigned to the current field.
    */
-  fun loadOrDefaultAndAssign(): Configuration {
-    this.current = this.load() ?: Configuration.default.also { save(it) }
+  fun loadOrDefaultAndAssign(): Config {
+    this.current = this.load() ?: Config.DEFAULT.also { save(it) }
     return current
   }
 }

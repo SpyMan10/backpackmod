@@ -1,0 +1,24 @@
+{
+  "type": "backpackmod:crafting_shaped_upgrade",
+  "category": "backpack",
+  "pattern": [
+    "###",
+    "CBC",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "B": {
+      "item": "backpackmod:diamond_backpack"
+    }
+  },
+  "result": {
+    "item": "backpackmod:netherite_backpack"
+  },
+  "nbt_source_key": "B"
+}

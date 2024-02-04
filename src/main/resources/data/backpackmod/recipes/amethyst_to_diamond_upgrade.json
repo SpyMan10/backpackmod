@@ -1,0 +1,24 @@
+{
+  "type": "backpackmod:crafting_shaped_upgrade",
+  "category": "backpack",
+  "pattern": [
+    "###",
+    "CBC",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "B": {
+      "item": "backpackmod:amethyst_backpack"
+    }
+  },
+  "result": {
+    "item": "backpackmod:diamond_backpack"
+  },
+  "nbt_source_key": "B"
+}

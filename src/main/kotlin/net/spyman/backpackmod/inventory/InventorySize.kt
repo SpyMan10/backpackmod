@@ -8,7 +8,10 @@ import java.lang.reflect.Type
  * backpack inventory.
  */
 data class InventorySize(
+  /** Inventory slot matrix width */
   val width: Int,
+
+  /** Inventory slot matrix height */
   val height: Int
 ) {
 
@@ -18,7 +21,8 @@ data class InventorySize(
       throw IllegalArgumentException("Inventory size width and height must be strictly > to 0")
   }
 
-  val size: Int = this.width * this.height
+  /** Total number of slots */
+  val count: Int = this.width * this.height
 
   override fun equals(other: Any?): Boolean {
     if (other !is InventorySize) return false

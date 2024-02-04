@@ -1,14 +1,23 @@
 package net.spyman.backpackmod.backpack
 
 import com.google.gson.*
-import net.minecraft.inventory.Inventory
-import net.minecraft.inventory.SimpleInventory
-import net.minecraft.item.ItemStack
 import net.minecraft.util.Rarity
-import net.spyman.backpackmod.config.ConfigurationManager
-import net.spyman.backpackmod.inventory.BackpackStorage
+import net.spyman.backpackmod.BackpackMod
 import net.spyman.backpackmod.inventory.InventorySize
 import java.lang.reflect.Type
+
+enum class BackpackFeature {
+  /** This item cannot be destroyed in fire source (like other netherite items) */
+  FIREPROOF,
+
+  /** Can be placed in armor slot or special slots */
+  WEARABLE,
+
+  /** This backpack can have a custom name without using anvil and label (user can do it by itself) */
+  RENAMABLE;
+
+  val translationKey = "feature.${BackpackMod.MODID}.${this.name.lowercase()}"
+}
 
 data class BackpackType(
   /** Backpack registry name */
@@ -20,19 +29,9 @@ data class BackpackType(
   /** Item rarity */
   val rarity: Rarity,
 
-  /** Backpack options */
-  val features: Set<BackpackFeatures>
+  /** Backpack features */
+  val features: Set<BackpackFeature>
 ) {
-
-  fun inventory(stack: ItemStack): Inventory {
-    val nbt = stack.orCreateNbt.getCompound(ConfigurationManager.current.inventoryNbtKey)
-    val stacks = BackpackStorage.load(nbt, this)
-    val inventory = SimpleInventory()
-
-
-    return inventory
-  }
-
   /** Auto-Generated Member **/
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -78,7 +77,7 @@ data class BackpackType(
       val rarity = Rarity.valueOf(obj.get("rarity").asString.uppercase())
       val size = ctx.deserialize<InventorySize>(obj.get("size"), InventorySize::class.java)
       val features =
-        obj.get("features").asJsonArray.map { v -> BackpackFeatures.valueOf(v.asString.uppercase()) }.toSet()
+        obj.get("features").asJsonArray.map { v -> BackpackFeature.valueOf(v.asString.uppercase()) }.toSet()
 
       return BackpackType(
         name,

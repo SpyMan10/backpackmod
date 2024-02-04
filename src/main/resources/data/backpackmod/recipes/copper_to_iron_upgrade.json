@@ -1,0 +1,24 @@
+{
+  "type": "backpackmod:crafting_shaped_upgrade",
+  "category": "backpack",
+  "pattern": [
+    "###",
+    "CBC",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "B": {
+      "item": "backpackmod:copper_backpack"
+    }
+  },
+  "result": {
+    "item": "backpackmod:iron_backpack"
+  },
+  "nbt_source_key": "B"
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "backpack",
+  "key": {
+    "#": {
+      "item": "minecraft:leather"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    }
+  },
+  "pattern": [
+    "###",
+    "SCS",
+    "###"
+  ],
+  "result": {
+    "item": "backpackmod:leather_backpack"
+  }
+}

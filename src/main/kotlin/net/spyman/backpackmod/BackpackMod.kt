@@ -1,42 +1,34 @@
 package net.spyman.backpackmod
 
 import net.fabricmc.api.ModInitializer
-import net.minecraft.text.MutableText
-import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import net.spyman.backpackmod.config.ConfigurationManager
-import net.spyman.backpackmod.init.ModItemGroups
-import net.spyman.backpackmod.init.ModItems
-import net.spyman.backpackmod.init.ModScreenHandlers
+import net.spyman.backpackmod.config.ConfigManager
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import net.spyman.backpackmod.init.registerContent
 
 object BackpackMod : ModInitializer {
 
   // Mod identifier
-  const val modid = "backpackmod"
+  const val MODID = "backpackmod"
 
   // Default logger
-  val logger = LoggerFactory.getLogger(modid)
+  val LOGGER: Logger = LoggerFactory.getLogger(MODID)
 
   override fun onInitialize() {
-    logger.info("Initializing BackpackMod...")
-    logger.info("Loading configuration file located at: ${ConfigurationManager.modConfigPath} ...")
-    logger.info("Note: If there is no configuration at the above path, the default config will be written")
-    ConfigurationManager.loadOrDefaultAndAssign()
+    LOGGER.info("Initializing BackpackMod...")
+    LOGGER.info("Loading configuration file located at: ${ConfigManager.modConfigPath} ...")
+    LOGGER.info("Note: If there is no configuration, the default config will be written and used by default")
+    ConfigManager.loadOrDefaultAndAssign()
 
-    logger.info("${ConfigurationManager.current.backpacks.size} Backpack type(s) found")
+    LOGGER.info("Found ${ConfigManager.current.backpacks.size} different backpack type(s)")
 
-    for (b in ConfigurationManager.current.backpacks)
-      logger.info("- ${b.name}")
+    for (b in ConfigManager.current.backpacks)
+      LOGGER.info("- ${b.name}")
 
-    logger.info("Registering items...")
-    ModItems.init()
-
-    // Force init
-    ModItemGroups.init()
-
-    ModScreenHandlers.init()
+    LOGGER.info("Registering content...")
+    registerContent()
   }
 
-  fun identify(resource: String): Identifier = Identifier(modid, resource)
+  fun identify(resource: String): Identifier = Identifier(MODID, resource)
 }

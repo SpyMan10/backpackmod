@@ -27,12 +27,6 @@
 				"value": "net.spyman.backpackmod.BackpackModClient",
 				"adapter": "kotlin"
 			}
-		],
-		"fabric-datagen": [
-			{
-				"value": "net.spyman.backpackmod.BackpackModDataGenerator",
-				"adapter": "kotlin"
-			}
 		]
 	},
 	"mixins": [],
